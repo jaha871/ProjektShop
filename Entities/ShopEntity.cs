@@ -11,11 +11,11 @@ namespace ShopManager.Entities
         [Column(Name = "Name")]
         public string Name { get; set; }
 
-        [Column(Name = "OwnerId")]
-        public long OwnerId { get; set; }
+        [Column(Name = "OwnerId", CanBeNull = true)]
+        public long? OwnerId { get; set; }
 
-        [Column(Name = "LocationId")]
-        public long LocationId { get; set; }
+        [Column(Name = "LocationId", CanBeNull = true)]
+        public long? LocationId { get; set; }
 
         [Association(Name="Branch_Owner", ThisKey="OwnerId", IsForeignKey=true)]
         public EmployeeEntity Owner { get; set; }

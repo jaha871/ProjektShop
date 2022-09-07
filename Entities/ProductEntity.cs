@@ -20,10 +20,10 @@ namespace ShopManager.Entities
         [Column(Name = "Ean")]
         public string Ean { get; set; }
 
-        [Column(Name = "CategoryId")]
+        [Column(Name = "CategoryId" , CanBeNull = true)]
         public long CategoryId { get; set; }
 
-        [Column(Name = "ShopId")]
+        [Column(Name = "ShopId" , CanBeNull = true)]
         public long ShopId { get; set; }
 
         [Association(Name="Product_Category", ThisKey="CategoryId", IsForeignKey=true)]

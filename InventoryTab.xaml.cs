@@ -49,6 +49,11 @@ namespace ShopManager
                 Shop = Shops.First(),
                 Ean = "5900512320427"
             });
+            Products.Add(new ProductEntity()
+            {
+                
+               
+            });
         }
     }
 }

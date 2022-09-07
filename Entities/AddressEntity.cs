@@ -16,7 +16,8 @@ namespace ShopManager.Entities
 
         [Column(Name = "Country")]
         public string Country { get; set; }
-        [Column(Name = "Zip_Code")]
+
+        [Column(Name = "ZipCode")]
         public string ZipCode {get; set; }
     }
 }
