@@ -8,7 +8,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ShopsTab">
 
-    <Grid>
-        <Label Content="Shops tab" />
-    </Grid>
+    <StackPanel Background="White" Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Add new shop" Click="AddNewShop_Click" Margin="0,3,3,3" Padding="10,4,10,4"/>
+            <Button Content="Reload" Click="Reload_Click" Margin="3,3,3,3" Padding="10,4,10,4"/>
+            <Button Content="Save" Click="Save_Click" Margin="3,3,0,3" Padding="10,4,10,4"/>
+        </StackPanel>
+        <DataGrid x:Name="itemGrid" ItemsSource="{Binding Products}" AutoGenerateColumns="False" CanUserAddRows="false">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Owner" Binding="{Binding Owner}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
 </Page>

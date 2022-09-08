@@ -30,6 +30,14 @@
                         HorizontalContentAlignment="Center"
                         Source="InventoryTab.xaml" />
                 </TabItem>
+                <TabItem Header="Categories">
+                    <Frame
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        HorizontalAlignment="Stretch" 
+                        HorizontalContentAlignment="Center"
+                        Source="CategoriesTab.xaml" />
+                </TabItem>
                 <TabItem Header="Shops">
                     <Frame
                         VerticalAlignment="Stretch"
@@ -45,6 +53,14 @@
                         HorizontalAlignment="Stretch" 
                         HorizontalContentAlignment="Center"
                         Source="EmployeesTab.xaml" />
+                </TabItem>
+                <TabItem Header="Addresses">
+                    <Frame
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        HorizontalAlignment="Stretch" 
+                        HorizontalContentAlignment="Center"
+                        Source="AddressesTab.xaml" />
                 </TabItem>
             </TabControl>
         </DockPanel>

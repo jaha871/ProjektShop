@@ -9,16 +9,34 @@
       Loaded="Page_Loaded"
       Title="InventoryTab">
 
-    <Grid Background="White">
-        <DataGrid x:Name="itemGrid" ItemsSource="{Binding Products}" AutoGenerateColumns="False">
+    <StackPanel Background="White" Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="addNewProduct" Content="Add new product" Click="AddNewProduct_Click" Margin="0,3,3,3" Padding="10,4,10,4"/>
+            <Button x:Name="reload" Content="Reload" Click="Reload_Click" Margin="3,3,3,3" Padding="10,4,10,4"/>
+            <Button x:Name="save" Content="Save" Click="Save_Click" Margin="3,3,0,3" Padding="10,4,10,4"/>
+        </StackPanel>
+        <DataGrid x:Name="itemGrid" ItemsSource="{Binding Products}" AutoGenerateColumns="False" CanUserAddRows="false" CommandManager.PreviewCanExecute="itemGrid_PreviewCanExecute">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"></DataGridTextColumn>
                 <DataGridTextColumn Header="EAN" Binding="{Binding Ean}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Shop" Binding="{Binding Shop.Name}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Category">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding Path=Categories, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" SelectedItem="{Binding Category.Name}" SelectionChanged="Category_SelectionChanged"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn> 
+                <DataGridTemplateColumn Header="Shop">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding Path=Shops, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" SelectedItem="{Binding Shop.Name}" SelectionChanged="Shop_SelectionChanged"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+    </StackPanel>
 </Page>

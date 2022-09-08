@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\kaluc\source\repos\ShopManager\obj\Debug\
+C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\
 ShopManager
 none
 false
 DEBUG;TRACE
-C:\Users\kaluc\source\repos\ShopManager\App.xaml
-4-280460780
+C:\Users\Bastek\Desktop\WSEI\ShopManager\App.xaml
+6177732840
 
-14-518012264
+16-2115257720
 14-664328358
-EmployeesTab.xaml;ShopsTab.xaml;InventoryTab.xaml;MainWindow.xaml;
+AddressesTab.xaml;CategoriesTab.xaml;EmployeesTab.xaml;ShopsTab.xaml;InventoryTab.xaml;MainWindow.xaml;
 
-False
+True
 

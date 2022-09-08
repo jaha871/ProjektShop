@@ -4,12 +4,14 @@ using System.Data.Linq;
 using System.Windows;
 using System.Collections.Generic;
 
+
 namespace ShopManager
 {
     public partial class App : Application
     {
         const string DatabaseConfig = @"Data Source=localhost;Initial Catalog=projectdb;Integrated Security=True";
 
+        public static DataContext DataContext { get; private set; }
         public static Table<AddressEntity> Addresses { get; private set; }
         public static Table<CategoryEntity> Categories { get; private set; }
         public static Table<EmployeeEntity> Employees { get; private set; }
@@ -22,28 +24,26 @@ namespace ShopManager
 
         private void ConnectWithDatabase()
         {
-            using (DataContext dataContext = new DataContext(DatabaseConfig))
-            {
-                Addresses = dataContext.GetTable<AddressEntity>();
-                Categories = dataContext.GetTable<CategoryEntity>();
-                Employees = dataContext.GetTable<EmployeeEntity>();
-                Products = dataContext.GetTable<ProductEntity>();
-                Shops = dataContext.GetTable<ShopEntity>();
+            DataContext = new DataContext(DatabaseConfig);
 
-                MigrateDatabase(dataContext);
+            Addresses = DataContext.GetTable<AddressEntity>();
+            Categories = DataContext.GetTable<CategoryEntity>();
+            Employees = DataContext.GetTable<EmployeeEntity>();
+            Products = DataContext.GetTable<ProductEntity>();
+            Shops = DataContext.GetTable<ShopEntity>();
 
-                Console.WriteLine($"Database ConnectionString: {dataContext.Connection.ConnectionString}.");
-                dataContext.Dispose();
-            }
+            MigrateDatabase();
+
+            Console.WriteLine($"Database ConnectionString: {DataContext.Connection.ConnectionString}.");
         }
 
-        private void MigrateDatabase(DataContext dataContext) {
-            //  if (dataContext.DatabaseExists()) return;
+        private void MigrateDatabase() {
+             if (DataContext.DatabaseExists()) return;
 
-            if (dataContext.DatabaseExists())
-                dataContext.DeleteDatabase();
+            if (DataContext.DatabaseExists())
+                DataContext.DeleteDatabase();
 
-            dataContext.CreateDatabase();
+           DataContext.CreateDatabase();
 
             var categories = new List<CategoryEntity>() {
                 new CategoryEntity() { Name = "Nabiał", Description = "Produkty mleczne" },
@@ -93,13 +93,13 @@ namespace ShopManager
             };
 
             var products = new List<ProductEntity>() {
-                new ProductEntity() { Name = "Kajzerka", Weight = 1, Price = 35, Ean = "5900531001130", CategoryId = 1, ShopId = 1 },
-                new ProductEntity() { Name = "Piątnica Śmietana do zupy 18%", Weight = 0.2, Price = 229, Ean = "5900512320427", CategoryId = 9, ShopId = 1 },
-                new ProductEntity() { Name = "Łaciate Mleko świeże 3,2 %", Weight = 1, Price = 379, Ean = "2345678901234", CategoryId = 1, ShopId = 2 },
-                new ProductEntity() { Name = "Carrefour Classic Masło ekstra", Weight = 0.2, Price = 729, Ean = "2345678901234", CategoryId = 1, ShopId = 3 },
-                new ProductEntity() { Name = "Piątnica Serek wiejski naturalny", Weight = 0.2, Price = 239, Ean = "2345678901234", CategoryId = 1, ShopId = 3 },
-                new ProductEntity() { Name = "Pomidory malinowe ważone", Weight = 1, Price = 200, Ean = "2345678901234", CategoryId = 4, ShopId = 3 },
-                new ProductEntity() { Name = "Simply Marchew z polskich upraw", Weight = 1, Price = 299, Ean = "2345678901234", CategoryId = 4, ShopId = 2 },
+                new ProductEntity() { Name = "Kajzerka", Weight = 1, Price = 35, Ean = "5900531001130", Quantity = 54, CategoryId = 1, ShopId = 1 },
+                new ProductEntity() { Name = "Piątnica Śmietana do zupy 18%", Weight = 0.2, Price = 229, Ean = "5900512320427", Quantity = 76, CategoryId = 9, ShopId = 1 },
+                new ProductEntity() { Name = "Łaciate Mleko świeże 3,2 %", Weight = 1, Price = 379, Ean = "2345678901234", Quantity = 32, CategoryId = 1, ShopId = 2 },
+                new ProductEntity() { Name = "Carrefour Classic Masło ekstra", Weight = 0.2, Price = 729, Ean = "2345678901234", Quantity = 83, CategoryId = 1, ShopId = 3 },
+                new ProductEntity() { Name = "Piątnica Serek wiejski naturalny", Weight = 0.2, Price = 239, Ean = "2345678901234", Quantity = 12, CategoryId = 1, ShopId = 3 },
+                new ProductEntity() { Name = "Pomidory malinowe ważone", Weight = 1, Price = 200, Ean = "2345678901234", Quantity = 36, CategoryId = 4, ShopId = 3 },
+                new ProductEntity() { Name = "Simply Marchew z polskich upraw", Weight = 1, Price = 299, Ean = "2345678901234", Quantity = 46, CategoryId = 4, ShopId = 2 },
             };
             
             Categories.InsertAllOnSubmit(categories);
@@ -108,13 +108,13 @@ namespace ShopManager
             Employees.InsertAllOnSubmit(employess);
             Products.InsertAllOnSubmit(products);
      
-            dataContext.SubmitChanges();
+            DataContext.SubmitChanges();
 
             shops[0].OwnerId = 1;
             shops[1].OwnerId = 2;
             shops[2].OwnerId = 3;
 
-            dataContext.SubmitChanges();
+            DataContext.SubmitChanges();
         }
     }
 }

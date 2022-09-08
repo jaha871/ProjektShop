@@ -42,3 +42,7 @@ C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\ShopManager.csproj.GenerateRe
 C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\ShopManager.csproj.CoreCompileInputs.cache
 C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\ShopManager.exe
 C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\ShopManager.pdb
+C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\AddressesTab.g.cs
+C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\CategoriesTab.g.cs
+C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\AddressesTab.baml
+C:\Users\Bastek\Desktop\WSEI\ShopManager\obj\Debug\CategoriesTab.baml

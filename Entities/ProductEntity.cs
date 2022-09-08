@@ -1,4 +1,5 @@
-﻿using System.Data.Linq.Mapping;
+﻿using System.Data.Linq;
+using System.Data.Linq.Mapping;
 
 namespace ShopManager.Entities
 {
@@ -17,6 +18,9 @@ namespace ShopManager.Entities
         [Column(Name = "Price")]
         public int Price { get; set; }
 
+        [Column(Name = "Quantity")]
+        public int Quantity { get; set; }
+
         [Column(Name = "Ean")]
         public string Ean { get; set; }
 
@@ -26,10 +30,31 @@ namespace ShopManager.Entities
         [Column(Name = "ShopId" , CanBeNull = true)]
         public long ShopId { get; set; }
 
-        [Association(Name="Product_Category", ThisKey="CategoryId", IsForeignKey=true)]
-        public CategoryEntity Category { get; set; }
+        internal EntityRef<CategoryEntity> _category;
+        [Association(Name="Product_Category", ThisKey="CategoryId", Storage = "_category", IsForeignKey=true)]
+        public CategoryEntity Category {
+            get { return _category.Entity; }
+            internal set {
+                if (value == null) return;
+                _category.Entity = value;
+                CategoryId = value.Id;
+            }
+        }
 
-        [Association(Name="Product_Shop", ThisKey="ShopId", IsForeignKey=true)]
-        public ShopEntity Shop { get; set; }
+        internal EntityRef<ShopEntity> _shop;
+        [Association(Name="Product_Shop", ThisKey="ShopId", Storage = "_shop", IsForeignKey=true)]
+        public ShopEntity Shop {
+            get { return _shop.Entity; }
+            internal set {
+                if (value == null) return;
+                _shop.Entity = value;
+                ShopId = value.Id;
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Product {{ Name = {Name ?? "null"}, Weight = {Weight}, Price = {Price}, Quantity = {Quantity}, Ean = {Ean ?? "null"}, Category = {Category?.Name ?? "null"}, Shop = {Shop?.Name ?? "null"} }}";
+        }
     }
 }

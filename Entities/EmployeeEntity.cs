@@ -1,4 +1,5 @@
-﻿using System.Data.Linq.Mapping;
+﻿using System.Data.Linq;
+using System.Data.Linq.Mapping;
 
 namespace ShopManager.Entities
 {
@@ -20,10 +21,34 @@ namespace ShopManager.Entities
         [Column(Name = "AddressId", CanBeNull = true)]
         public long? AddressId { get; set; }
 
-        [Association(Name="Employee_Branch", ThisKey="BranchId", IsForeignKey=true)]
-        public ShopEntity Branch { get; set; }
+        internal EntityRef<ShopEntity> _branch;
+        [Association(Name="Employee_Branch", ThisKey="BranchId", Storage = "_branch", IsForeignKey=true)]
+        public ShopEntity Branch {
+            get { return _branch.Entity; }
+            internal set {
+                if (value == null) return;
+                _branch.Entity = value;
+                BranchId = value.Id;
+            }
+        }
 
-        [Association(Name="Employee_Address", ThisKey="AddressId", IsForeignKey=true)]
-        public AddressEntity Address { get; set; }
+        internal EntityRef<AddressEntity> _address;
+        [Association(Name="Employee_Address", ThisKey="AddressId", Storage = "_address", IsForeignKey=true)]
+        public AddressEntity Address {
+            get { return _address.Entity; }
+            internal set {
+                if (value == null) return;
+                _address.Entity = value;
+                AddressId = value.Id;
+            }
+        }
+
+        public string FullAddress {
+            set { }
+            get {
+                if (Address == null) return string.Empty;
+                return $"{Address.Street}, {Address.City}\n{Address.ZipCode} {Address.Country}";
+            }
+        }
     }
 }
